@@ -172,7 +172,7 @@ $abstract$
 $if(tags)$
 
 \bigskip
-\noindent \textbf{Keywords.}
+\noindent \textbf{$if(tags-label)$$tags-label$$else$Keywords.$endif$}
 $for(tags)$
 $tags$~-- 
 $endfor$
