@@ -1,0 +1,48 @@
+$if(title)$
+[[!meta title="$title$"]]
+$endif$
+$if(author-meta)$
+[[!meta author="$author-meta$"]]
+$endif$
+$if(date)$
+[[!meta date="$date$"]]
+$endif$
+$if(abstract)$
+[[!meta description="$abstract$"]]
+$endif$
+$if(lang)$
+[[!meta language="$lang$"]]
+$endif$
+$if(tags)$
+[[!tag $if(lang)$lang:$lang$ $endif$ $for(tags)$$tags$ $endfor$]]
+$endif$
+
+$if(toc)$
+<aside class="toc">
+Contents
+
+[[!toc $if(startlevel)$startlevel=$startlevel$$endif$ levels=$toc-depth$ ]]
+
+</aside>
+$endif$
+
+$if(abstract)$
+<div class="abstract">
+$abstract$
+</div>
+
+<!--!more  linktext="" text="""-->
+$body$
+<!--"""]]-->
+$else$
+$for(include-before)$
+$include-before$
+
+$endfor$
+$body$
+$endif$
+
+$for(include-after)$
+$include-after$
+
+$endfor$
