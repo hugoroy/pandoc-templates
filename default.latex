@@ -1,4 +1,41 @@
 \documentclass[$if(fontsize)$$fontsize$,$else$12pt,$endif$$if(lang)$$lang$,$endif$$if(papersize)$$papersize$,$else$a4paper,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
+
+% Options for my letter class
+$if(firstname)$
+\name{$firstname$}{$lastname$}
+$endif$
+$if(qualification)$
+\qualification{$qualification$}
+$endif$
+$if(address)$
+\address$for(address)${$address$}$endfor$
+$endif$
+$if(mobile)$
+\phone[mobile]{$mobile$}
+$endif$
+$if(email)$
+\email{$email$}
+$endif$
+$if(homepage)$
+\homepage{$homepage$}
+$endif$
+$if(extrainfo)$
+\extrainfo{$extrainfo$}
+$endif$
+$if(extrainfocv)$
+\extrainfocv{$extrainfocv$}
+$endif$
+
+$if(hrdlettrestyle)$
+\hrdlettrestyle{$hrdlettrestyle$}
+$endif$
+$if(hrdlettrecolor)$
+\hrdlettrecolor{$hrdlettrecolor$}
+$endif$
+$if(nopagenumbers)$
+\nopagenumbers{} 
+$endif$
+
 $if(fontfamily)$
 \usepackage{$fontfamily$}
 $else$
@@ -37,6 +74,25 @@ $if(monofont)$
 $endif$
 $if(mathfont)$
     \setmathfont(Digits,Latin,Greek){$mathfont$}
+$endif$
+
+% Custom fonts 
+$if(libertine)$
+    \setmainfont$if(mainfontoptions)$[$for(mainfontoptions)$,$endfor$]$endif${Linux Libertine O}
+    \chardef\&="E050
+    \setsansfont$if(sansfontoptions)$[$for(sansfontoptions)$,$endfor$]$endif${Linux Biolinum O}
+$endif$
+$if(alegreya)$
+    \setmainfont[Mapping=tex-text,Scale=1]{Alegreya}
+    \setsansfont[Mapping=tex-text,Scale=1]{Alegreya Sans}
+$endif$
+$if(garamond)$
+    \setmainfont[Mapping=tex-text,Scale=1,BoldFont={Garamond Premier Pro Bold},RawFeature={+cv11,+liga,+dlig,+calt,+onum,+tnum},ItalicFeatures={RawFeature={+cv05,+clig}}]{EB Garamond}
+    \setmonofont[Mapping=tex-text,Scale=1,BoldFont={Garamond Premier Pro Bold},RawFeature={+lnum}]{EB Garamond}
+$endif$
+$if(kurier-light)$
+  \setmainfont[BoldFont={Kurier Bold}, ItalicFont={Kurier Light Italic}, BoldItalicFont={Kurier Bold Italic}]{Kurier Light}
+  \setsansfont[BoldFont={Kurier Bold}, ItalicFont={Kurier Light Italic}, BoldItalicFont={Kurier Bold Italic}]{Kurier Light}
 $endif$
 \fi
 % use upquote if available, for straight quotes in verbatim environments
@@ -139,6 +195,12 @@ $if(numbersections)$
 $else$
 \setcounter{secnumdepth}{0}
 $endif$
+$if(numberparagraphs)$
+%% numerate paragraphs with a label
+\newcounter{paranumero}
+\newcommand{\para}[1]{%
+  \noindent\refstepcounter{paranumero}\llap{\small\bfseries\theparanumero\label{#1}.~}}
+$endif$
 $if(verbatim-in-note)$
 \VerbatimFootnotes % allows verbatim text in footnotes
 $endif$
@@ -163,8 +225,33 @@ $endfor$
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 
 \begin{document}
+% Options for my letter class
+$if(hrdlettre)$
+$if(makelettertitle)$
+$if(letterstatus)$
+\letterstatus{$letterstatus$}
+$endif$
+\recipient$for(recipient)${$recipient$}$endfor$
+$if(refprefix)$
+\refprefix{$refprefix$}
+$endif$
+$if(refers)$
+\refers{$refers$}
+$endif$
+$if(titleprefix)$
+\titleprefix{$titleprefix$}
+$endif$
+\opening{$opening$}
+\closing{$closing$}
+$if(enclosure)$
+\enclosure[$enclosure-before$]{$enclosure$}
+$endif$
+\makelettertitle
+$endif$
+$else$
 $if(title)$
 \maketitle
+$endif$
 $endif$
 $if(abstract)$
 \begin{abstract}
@@ -198,6 +285,35 @@ $if(lof)$
 \listoffigures
 $endif$
 $body$
+
+% Letter class options again...
+$if(closing)$
+\makeletterclosing
+$endif$
+
+
+$if(curriculumvitae)$
+\clearpage
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+\makecvtitle
+\input{$curriculumvitae$}
+$endif$
+
+$if(enclosed)$
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+$for(enclosed)$
+\clearpage
+\input{$enclosed$}
+$endfor$
+$endif$
+
 
 $if(natbib)$
 $if(biblio-files)$
