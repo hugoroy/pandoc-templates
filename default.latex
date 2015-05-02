@@ -27,13 +27,13 @@ $endif$
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
   \newcommand{\euro}{€}
 $if(mainfont)$
-    \setmainfont{$mainfont$}
+    \setmainfont$if(mainfontoptions)$[$for(mainfontoptions)$,$endfor$]$endif${$mainfont$}
 $endif$
 $if(sansfont)$
-    \setsansfont{$sansfont$}
+    \setsansfont$if(sansfontoptions)$[$for(sansfontoptions)$,$endfor$]$endif${$sansfont$}
 $endif$
 $if(monofont)$
-    \setmonofont[Mapping=tex-ansi]{$monofont$}
+    \setmonofont$if(monofontoptions)$[$for(monofontoptions)$,$endfor$]$else$[Mapping=tex-ansi]$endif${$monofont$}
 $endif$
 $if(mathfont)$
     \setmathfont(Digits,Latin,Greek){$mathfont$}
