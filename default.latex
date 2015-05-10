@@ -228,6 +228,9 @@ $endfor$
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
+%Personal commands and environments
+\newcommand{\lexcite}[1]{{\footnotesize\sffamily(#1)}}
+
 \begin{document}
 % Options for my letter class
 $if(hrdlettre)$
