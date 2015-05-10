@@ -228,8 +228,10 @@ $endfor$
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
+$if(lexcite)$
 %Personal commands and environments
-\newcommand{\lexcite}[1]{{\footnotesize\sffamily(#1)}}
+\newcommand{\lexcite}[1]{{$for(lexcite)$$lexcite$$endfor$(#1)}}
+$endif$
 
 \begin{document}
 % Options for my letter class
