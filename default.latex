@@ -279,6 +279,9 @@ $if(toc)$
 {
 \hypersetup{linkcolor=black}
 \setcounter{tocdepth}{$toc-depth$}
+$for(toc-options)$
+$toc-options$
+$endfor$
 \tableofcontents
 }
 $endif$
