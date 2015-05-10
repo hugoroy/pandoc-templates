@@ -283,6 +283,9 @@ $for(toc-options)$
 $toc-options$
 $endfor$
 \tableofcontents
+$for(toc-after)$
+$toc-after$
+$endfor$
 }
 $endif$
 $if(lot)$
