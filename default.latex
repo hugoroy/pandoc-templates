@@ -1,4 +1,10 @@
 \documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$$if(papersize)$$papersize$,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
+% Options for moderncv
+$if(moderncv)$
+\moderncvtheme[$for(moderncv.options)$$moderncv.options$$sep$,$endfor$]{$moderncv.theme$}
+\firstname{$moderncv.firstname$}
+\familyname{$moderncv.familyname$}
+$endif$
 $if(fontfamily)$
 \usepackage{$fontfamily$}
 $else$
@@ -60,6 +66,8 @@ $endif$
 \else
   \usepackage[unicode=true]{hyperref}
 \fi
+$if(moderncv)$
+$else$
 \usepackage[usenames,dvipsnames]{color}
 \hypersetup{breaklinks=true,
             bookmarks=true,
@@ -71,6 +79,7 @@ $endif$
             linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
             hidelinks=$if(hidelinks)$$hidelinks$$endif$, 
             pdfborder={0 0 0}}
+$endif$
 \urlstyle{same}  % don't use monospace font for urls
 $if(lang)$
 \ifxetex
@@ -162,9 +171,49 @@ $endfor$
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
+$if(moderncv.title)$
+\title{$moderncv.title$}
+$endif$
+$if(moderncv.qualification)$
+\qualification{$moderncv.qualification$}
+$endif$
+$if(moderncv.address)$
+\address{$moderncv.address.street$}{$moderncv.address.city$}
+$endif$
+$if(moderncv.mobile)$
+\mobile{$moderncv.mobile$}
+$endif$
+$if(moderncv.phone)$
+\phone{$moderncv.phone$}
+$endif$
+$if(moderncv.fax)$
+\fax{$moderncv.fax$}
+$endif$
+$if(moderncv.email)$
+\email{$moderncv.email$}
+$endif$
+$if(moderncv.extrainfo)$
+\extrainfo{$moderncv.extrainfo$}
+$endif$
+$if(moderncv.extrainfocv)$
+\extrainfocv{$moderncv.extrainfocv$}
+$endif$
+$if(moderncv.photo)$
+\photo$if(moderncv.photo.height)$[$moderncv.photo.height$]$endif${$moderncv.photo.file$}
+$endif$
+$if(moderncv.quote)$
+\quote{$moderncv.quote$}
+$endif$
+$if(moderncv.nopagenumbers)$
+\nopagenumbers{}
+$endif$
+
 \begin{document}
+$if(moderncv)$
+$else$
 $if(title)$
 \maketitle
+$endif$
 $endif$
 $if(abstract)$
 \begin{abstract}
@@ -189,7 +238,64 @@ $endif$
 $if(lof)$
 \listoffigures
 $endif$
+
+$if(modernletter)$
+$if(modernletter.recipient)$
+\recipient{$modernletter.recipient.name$}{$modernletter.recipient.address$}
+$endif$
+$if(modernletter.status)$
+\status{$modernletter.status$}
+$endif$
+$if(modernletter.date)$
+\date{$modernletter.date$}
+$endif$
+$if(modernletter.reference)$
+$if(modernletter.reference.prefix)$
+\refprefix{$modernletter.reference.prefix$}
+$endif$
+\reference{$modernletter.reference.ref$}
+$endif$
+$if(modernletter.subject)$
+$if(modernletter.subject.prefix)$
+\subjectprefix{$modernletter.subject.prefix$}
+$endif$
+\subject{$modernletter.subject.name$}
+$endif$
+$if(modernletter.opening)$
+\opening{$modernletter.opening$}
+$endif$
+\makelettertitle
+$endif$
+
 $body$
+
+$if(modernletter.enclosure)$
+\enclosure[$modernletter.enclosure-before$]{$modernletter.enclosure$}
+$endif$
+$if(modernletter.closing)$
+\closing{$modernletter.closing$}
+\makeletterclosing
+$endif$
+
+$if(curriculumvitae)$
+\clearpage
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\makecvtitle
+\input{$curriculumvitae$}
+$endif$
+
+$if(enclosed)$
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+$for(enclosed)$
+\clearpage
+\input{$enclosed$}
+$sep$\vfill
+$endfor$
+$endif$
 
 $if(natbib)$
 $if(bibliography)$
