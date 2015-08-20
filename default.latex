@@ -1,48 +1,5 @@
 \documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$$if(papersize)$$papersize$,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
 
-% Options for moderncv
-$if(moderncv)$
-\moderncvtheme[$for(moderncv.options)$$moderncv.options$$sep$,$endfor$]{$moderncv.theme$}
-\firstname{$moderncv.firstname$}
-\familyname{$moderncv.familyname$}
-$endif$
-%\title{$moderncv.title$}
-$if(moderncv.address)$
-\address{$moderncv.address.street$}{$moderncv.address.city$}
-$endif$
-$if(moderncv.mobile)$
-\mobile{$moderncv.mobile$}
-$endif$
-$if(moderncv.phone)$
-\phone{$moderncv.phone$}
-$endif$
-$if(moderncv.fax)$
-\fax{$moderncv.fax$}
-$endif$
-$if(moderncv.email)$
-\email{$moderncv.email$}
-$endif$
-$if(moderncv.extrainfo)$
-\extrainfo{$moderncv.extrainfo$}
-$endif$
-$if(moderncv.photo)$
-\photo$if(moderncv.photo.height)$[$moderncv.photo.height$]$endif${$moderncv.photo.file$}
-$endif$
-$if(moderncv.quote)$
-\quote{$moderncv.quote$}
-$endif$
-$if(moderncv.nopagenumbers)$
-\nopagenumbers{}
-$endif$
-
-%TODO
-$if(qualification)$
-\qualification{$qualification$}
-$endif$
-$if(extrainfocv)$
-\extrainfocv{$extrainfocv$}
-$endif$
-
 $if(fontfamily)$
 \usepackage{$fontfamily$}
 $else$
@@ -248,6 +205,49 @@ $if(lexcite)$
 \newcommand{\lexcite}[1]{{$for(lexcite)$$lexcite$$endfor$(#1)}}
 $endif$
 
+% Options for moderncv
+$if(moderncv)$
+\moderncvtheme[$for(moderncv.options)$$moderncv.options$$sep$,$endfor$]{$moderncv.theme$}
+\firstname{$moderncv.firstname$}
+\familyname{$moderncv.familyname$}
+$endif$
+%\title{$moderncv.title$}
+$if(moderncv.address)$
+\address{$moderncv.address.street$}{$moderncv.address.city$}
+$endif$
+$if(moderncv.mobile)$
+\mobile{$moderncv.mobile$}
+$endif$
+$if(moderncv.phone)$
+\phone{$moderncv.phone$}
+$endif$
+$if(moderncv.fax)$
+\fax{$moderncv.fax$}
+$endif$
+$if(moderncv.email)$
+\email{$moderncv.email$}
+$endif$
+$if(moderncv.extrainfo)$
+\extrainfo{$moderncv.extrainfo$}
+$endif$
+$if(moderncv.photo)$
+\photo$if(moderncv.photo.height)$[$moderncv.photo.height$]$endif${$moderncv.photo.file$}
+$endif$
+$if(moderncv.quote)$
+\quote{$moderncv.quote$}
+$endif$
+$if(moderncv.nopagenumbers)$
+\nopagenumbers{}
+$endif$
+
+%TODO
+$if(qualification)$
+\qualification{$qualification$}
+$endif$
+$if(extrainfocv)$
+\extrainfocv{$extrainfocv$}
+$endif$
+
 \begin{document}
 %% % Options for my letter class
 %% $if(hrdlettre)$
@@ -275,10 +275,6 @@ $endif$
 %% $else$
 $if(title)$
 \maketitle
-$else$
-$if(moderncv)$
-\maketitle
-$endif$
 $endif$
 %% $endif$
 $if(abstract)$
