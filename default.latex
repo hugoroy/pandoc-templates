@@ -116,6 +116,7 @@ $endif$
 }{}
 $if(geometry)$
 \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+\recomputelengths
 $endif$
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
@@ -274,6 +275,10 @@ $endif$
 %% $else$
 $if(title)$
 \maketitle
+$else$
+$if(moderncv)$
+\maketitle
+$endif$
 $endif$
 %% $endif$
 $if(abstract)$
