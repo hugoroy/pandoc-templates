@@ -325,14 +325,12 @@ $endif$
 
 $body$
 
-$if(modernletter)$
-$if(modernletter.closing)$
-\closing{$modernletter.closing$}
-\makeletterclosing
-$endif$
 $if(modernletter.enclosure)$
 \enclosure[$modernletter.enclosure-before$]{$modernletter.enclosure$}
 $endif$
+$if(modernletter.closing)$
+\closing{$modernletter.closing$}
+\makeletterclosing
 $endif$
 
 
