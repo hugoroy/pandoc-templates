@@ -93,6 +93,10 @@ $endif$
 $if(kurier-light)$
   \setmainfont[BoldFont={Kurier Bold}, ItalicFont={Kurier Light Italic}, BoldItalicFont={Kurier Bold Italic}]{Kurier Light}
   \setsansfont[BoldFont={Kurier Bold}, ItalicFont={Kurier Light Italic}, BoldItalicFont={Kurier Bold Italic}]{Kurier Light}
+
+$if(CJKmainfont)$
+    \usepackage{xeCJK}
+    \setCJKmainfont[$CJKoptions$]{$CJKmainfont$}
 $endif$
 \fi
 % use upquote if available, for straight quotes in verbatim environments
@@ -105,10 +109,30 @@ $endif$
 $if(geometry)$
 \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
 $endif$
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\usepackage[usenames,dvipsnames]{color}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={$author-meta$},
+            pdftitle={$title-meta$},
+            colorlinks=true,
+            citecolor=$if(citecolor)$$citecolor$$else$blue$endif$,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
+            hidelinks=$if(hidelinks)$$hidelinks$$endif$,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
 $if(lang)$
 \ifxetex
   \usepackage{polyglossia}
   \setmainlanguage{$mainlang$}
+  \setotherlanguages{$for(otherlang)$$otherlang$$sep$,$endfor$}
 \else
   \usepackage[shorthands=off,$lang$]{babel}
 \fi
@@ -119,9 +143,9 @@ $if(natbib)$
 $endif$
 $if(biblatex)$
 \usepackage{biblatex}
-$if(biblio-files)$
-\bibliography{$biblio-files$}
-$endif$
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
 $endif$
 $if(listings)$
 \usepackage{listings}
@@ -150,24 +174,6 @@ $if(graphics)$
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 $endif$
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
-\hypersetup{breaklinks=true,
-            bookmarks=true,
-            pdfauthor={$author-meta$},
-            pdftitle={$title-meta$},
-            colorlinks=true,
-            citecolor=$if(citecolor)$$citecolor$$else$blue$endif$,
-            urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
-            linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
-            hidelinks=$if(hidelinks)$$hidelinks$$endif$,
-            pdfborder={0 0 0}}
-\urlstyle{same}  % don't use monospace font for urls
 $if(links-as-notes)$
 % Make links footnotes instead of hotlinks:
 \renewcommand{\href}[2]{#2\footnote{\url{#1}}}
@@ -282,7 +288,7 @@ $include-before$
 $endfor$
 $if(toc)$
 {
-\hypersetup{linkcolor=black}
+\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
 \setcounter{tocdepth}{$toc-depth$}
 $for(toc-options)$
 $toc-options$
@@ -331,7 +337,7 @@ $endif$
 
 
 $if(natbib)$
-$if(biblio-files)$
+$if(bibliography)$
 $if(biblio-title)$
 $if(book-class)$
 \renewcommand\bibname{$biblio-title$}
@@ -339,7 +345,7 @@ $else$
 \renewcommand\refname{$biblio-title$}
 $endif$
 $endif$
-\bibliography{$biblio-files$}
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
 
 $endif$
 $endif$
