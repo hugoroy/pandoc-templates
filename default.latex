@@ -1,5 +1,12 @@
 \documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$$if(papersize)$$papersize$,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
 
+% Options for moderncv
+$if(moderncv)$
+\moderncvtheme[$for(moderncv.options)$$moderncv.options$$sep$,$endfor$]{$moderncv.theme$}
+\firstname{$moderncv.firstname$}
+\familyname{$moderncv.familyname$}
+$endif$
+
 $if(fontfamily)$
 \usepackage{$fontfamily$}
 $else$
@@ -208,13 +215,12 @@ $if(lexcite)$
 \newcommand{\lexcite}[1]{{$for(lexcite)$$lexcite$$endfor$(#1)}}
 $endif$
 
-% Options for moderncv
-$if(moderncv)$
-\moderncvtheme[$for(moderncv.options)$$moderncv.options$$sep$,$endfor$]{$moderncv.theme$}
-\firstname{$moderncv.firstname$}
-\familyname{$moderncv.familyname$}
+$if(moderncv.title)$
+\title{$moderncv.title$}
 $endif$
-%\title{$moderncv.title$}
+$if(moderncv.qualification)$
+\qualification{$moderncv.qualification$}
+$endif$
 $if(moderncv.address)$
 \address{$moderncv.address.street$}{$moderncv.address.city$}
 $endif$
@@ -233,6 +239,9 @@ $endif$
 $if(moderncv.extrainfo)$
 \extrainfo{$moderncv.extrainfo$}
 $endif$
+$if(moderncv.extrainfocv)$
+\extrainfocv{$moderncv.extrainfocv$}
+$endif$
 $if(moderncv.photo)$
 \photo$if(moderncv.photo.height)$[$moderncv.photo.height$]$endif${$moderncv.photo.file$}
 $endif$
@@ -243,47 +252,13 @@ $if(moderncv.nopagenumbers)$
 \nopagenumbers{}
 $endif$
 
-%TODO
-$if(qualification)$
-\qualification{$qualification$}
-$endif$
-$if(extrainfocv)$
-\extrainfocv{$extrainfocv$}
-$endif$
-
 \begin{document}
 $if(moderncv)$
-\maketitle
 $else$
 $if(title)$
 \maketitle
 $endif$
 $endif$
-%% % Options for my letter class
-%% $if(hrdlettre)$
-%% $if(makelettertitle)$
-%% $if(letterstatus)$
-%% \letterstatus{$letterstatus$}
-%% $endif$
-%% \recipient$for(recipient)${$recipient$}$endfor$
-%% $if(refprefix)$
-%% \refprefix{$refprefix$}
-%% $endif$
-%% $if(refers)$
-%% \refers{$refers$}
-%% $endif$
-%% $if(titleprefix)$
-%% \titleprefix{$titleprefix$}
-%% $endif$
-%% \opening{$opening$}
-%% \closing{$closing$}
-%% $if(enclosure)$
-%% \enclosure[$enclosure-before$]{$enclosure$}
-%% $endif$
-%% \makelettertitle
-%% $endif$
-%% $else$
-%% $endif$
 $if(abstract)$
 \begin{abstract}
 $abstract$
@@ -318,35 +293,69 @@ $endif$
 $if(lof)$
 \listoffigures
 $endif$
+
+$if(modernletter)$
+$if(modernletter.recipient)$
+\recipient{$modernletter.recipient.name$}{$modernletter.recipient.address$}
+$endif$
+$if(modernletter.status)$
+\status{$modernletter.status$}
+$endif$
+$if(modernletter.date)$
+\date{$modernletter.date$}
+$endif$
+$if(modernletter.reference)$
+$if(modernletter.reference.prefix)$
+\refprefix{$modernletter.reference.prefix$}
+$endif$
+\reference{$modernletter.reference.ref$}
+$endif$
+$if(modernletter.subject)$
+$if(modernletter.subject.prefix)$
+\subjectprefix{$modernletter.subject.prefix$}
+$endif$
+\subject{$modernletter.subject.name$}
+$endif$
+$if(modernletter.opening)$
+\opening{$modernletter.opening$}
+$endif$
+\makelettertitle
+$endif$
+
+
 $body$
 
-%% % Letter class options again...
-%% $if(closing)$
-%% \makeletterclosing
-%% $endif$
+$if(modernletter)$
+$if(modernletter.closing)$
+\closing{$modernletter.closing$}
+\makeletterclosing
+$endif$
+$if(modernletter.enclosure)$
+\enclosure[$modernletter.enclosure-before$]{$modernletter.enclosure$}
+$endif$
+$endif$
 
 
-%% $if(curriculumvitae)$
-%% \clearpage
 
-%% \setlength{\parindent}{0pt}
-%% \setlength{\parskip}{6pt plus 2pt minus 1pt}
-%% \setlength{\emergencystretch}{3em}  % prevent overfull lines
+$if(curriculumvitae)$
+\clearpage
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\makecvtitle
+\input{$curriculumvitae$}
+$endif$
 
-%% \makecvtitle
-%% \input{$curriculumvitae$}
-%% $endif$
-
-%% $if(enclosed)$
-%% \setlength{\parindent}{0pt}
-%% \setlength{\parskip}{6pt plus 2pt minus 1pt}
-%% \setlength{\emergencystretch}{3em}  % prevent overfull lines
-
-%% $for(enclosed)$
-%% \clearpage
-%% \input{$enclosed$}
-%% $endfor$
-%% $endif$
+$if(enclosed)$
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+$for(enclosed)$
+\clearpage
+\input{$enclosed$}
+$sep$\vfill
+$endfor$
+$endif$
 
 
 $if(natbib)$
