@@ -1,39 +1,45 @@
 \documentclass[$if(fontsize)$$fontsize$,$else$12pt,$endif$$if(lang)$$lang$,$endif$$if(papersize)$$papersize$,$else$a4paper,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
 
-% Options for my letter class
-$if(firstname)$
-\name{$firstname$}{$lastname$}
+% Options for moderncv
+\moderncvtheme[$for(moderncv.options)$$moderncv.options$$sep$,$endfor$]{$moderncv.theme$}
+
+\firstname{$moderncv.firstname$}
+\familyname{$moderncv.familyname$}
+%\title{$moderncv.title$}
+$if(moderncv.address)$
+\address{$moderncv.address.street$}{$moderncv.address.city$}
 $endif$
+$if(moderncv.mobile)$
+\mobile{$moderncv.mobile$}
+$endif$
+$if(moderncv.phone)$
+\phone{$moderncv.phone$}
+$endif$
+$if(moderncv.fax)$
+\fax{$moderncv.fax$}
+$endif$
+$if(moderncv.email)$
+\email{$moderncv.email$}
+$endif$
+$if(moderncv.extrainfo)$
+\extrainfo{$moderncv.extrainfo$}
+$endif$
+$if(moderncv.photo)$
+\photo$if(moderncv.photo.height)$[$moderncv.photo.height$]$endif${$moderncv.photo.file$}
+$endif$
+$if(moderncv.quote)$
+\quote{$moderncv.quote$}
+$endif$
+$if(moderncv.nopagenumbers)$
+\nopagenumbers{}
+$endif$
+
+%TODO
 $if(qualification)$
 \qualification{$qualification$}
 $endif$
-$if(address)$
-\address$for(address)${$address$}$endfor$
-$endif$
-$if(mobile)$
-\phone[mobile]{$mobile$}
-$endif$
-$if(email)$
-\email{$email$}
-$endif$
-$if(homepage)$
-\homepage{$homepage$}
-$endif$
-$if(extrainfo)$
-\extrainfo{$extrainfo$}
-$endif$
 $if(extrainfocv)$
 \extrainfocv{$extrainfocv$}
-$endif$
-
-$if(hrdlettrestyle)$
-\hrdlettrestyle{$hrdlettrestyle$}
-$endif$
-$if(hrdlettrecolor)$
-\hrdlettrecolor{$hrdlettrecolor$}
-$endif$
-$if(nopagenumbers)$
-\nopagenumbers{} 
 $endif$
 
 $if(fontfamily)$
@@ -125,7 +131,7 @@ $endif$
             citecolor=$if(citecolor)$$citecolor$$else$blue$endif$,
             urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
             linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
-            hidelinks=$if(hidelinks)$$hidelinks$$endif$,
+            $if(hidelinks)$hidelinks=$hidelinks$,$endif$
             pdfborder={0 0 0}}
 \urlstyle{same}  % don't use monospace font for urls
 $if(lang)$
@@ -240,44 +246,41 @@ $if(lexcite)$
 $endif$
 
 \begin{document}
-% Options for my letter class
-$if(hrdlettre)$
-$if(makelettertitle)$
-$if(letterstatus)$
-\letterstatus{$letterstatus$}
-$endif$
-\recipient$for(recipient)${$recipient$}$endfor$
-$if(refprefix)$
-\refprefix{$refprefix$}
-$endif$
-$if(refers)$
-\refers{$refers$}
-$endif$
-$if(titleprefix)$
-\titleprefix{$titleprefix$}
-$endif$
-\opening{$opening$}
-\closing{$closing$}
-$if(enclosure)$
-\enclosure[$enclosure-before$]{$enclosure$}
-$endif$
-\makelettertitle
-$endif$
-$else$
+%% % Options for my letter class
+%% $if(hrdlettre)$
+%% $if(makelettertitle)$
+%% $if(letterstatus)$
+%% \letterstatus{$letterstatus$}
+%% $endif$
+%% \recipient$for(recipient)${$recipient$}$endfor$
+%% $if(refprefix)$
+%% \refprefix{$refprefix$}
+%% $endif$
+%% $if(refers)$
+%% \refers{$refers$}
+%% $endif$
+%% $if(titleprefix)$
+%% \titleprefix{$titleprefix$}
+%% $endif$
+%% \opening{$opening$}
+%% \closing{$closing$}
+%% $if(enclosure)$
+%% \enclosure[$enclosure-before$]{$enclosure$}
+%% $endif$
+%% \makelettertitle
+%% $endif$
+%% $else$
 $if(title)$
 \maketitle
 $endif$
-$endif$
+%% $endif$
 $if(abstract)$
 \begin{abstract}
 $abstract$
 $if(tags)$
-
 \bigskip
 \noindent \textbf{$if(tags-label)$$tags-label$$else$Keywords.$endif$}
-$for(tags)$
-$tags$~-- 
-$endfor$
+$for(tags)$$tags$$sep$~--$endfor$
 $endif$
 \end{abstract}
 $endif$
@@ -307,33 +310,33 @@ $if(lof)$
 $endif$
 $body$
 
-% Letter class options again...
-$if(closing)$
-\makeletterclosing
-$endif$
+%% % Letter class options again...
+%% $if(closing)$
+%% \makeletterclosing
+%% $endif$
 
 
-$if(curriculumvitae)$
-\clearpage
+%% $if(curriculumvitae)$
+%% \clearpage
 
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
+%% \setlength{\parindent}{0pt}
+%% \setlength{\parskip}{6pt plus 2pt minus 1pt}
+%% \setlength{\emergencystretch}{3em}  % prevent overfull lines
 
-\makecvtitle
-\input{$curriculumvitae$}
-$endif$
+%% \makecvtitle
+%% \input{$curriculumvitae$}
+%% $endif$
 
-$if(enclosed)$
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
+%% $if(enclosed)$
+%% \setlength{\parindent}{0pt}
+%% \setlength{\parskip}{6pt plus 2pt minus 1pt}
+%% \setlength{\emergencystretch}{3em}  % prevent overfull lines
 
-$for(enclosed)$
-\clearpage
-\input{$enclosed$}
-$endfor$
-$endif$
+%% $for(enclosed)$
+%% \clearpage
+%% \input{$enclosed$}
+%% $endfor$
+%% $endif$
 
 
 $if(natbib)$
