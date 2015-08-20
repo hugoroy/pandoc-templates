@@ -75,6 +75,8 @@ $if(geometry)$
 \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
 \recomputelengths
 $endif$
+$if(moderncv)$
+$else$
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -93,6 +95,7 @@ $endif$
             linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
             $if(hidelinks)$hidelinks=$hidelinks$,$endif$
             pdfborder={0 0 0}}
+$endif$
 \urlstyle{same}  % don't use monospace font for urls
 $if(lang)$
 \ifxetex
@@ -249,6 +252,13 @@ $if(extrainfocv)$
 $endif$
 
 \begin{document}
+$if(moderncv)$
+\maketitle
+$else$
+$if(title)$
+\maketitle
+$endif$
+$endif$
 %% % Options for my letter class
 %% $if(hrdlettre)$
 %% $if(makelettertitle)$
@@ -273,9 +283,6 @@ $endif$
 %% \makelettertitle
 %% $endif$
 %% $else$
-$if(title)$
-\maketitle
-$endif$
 %% $endif$
 $if(abstract)$
 \begin{abstract}
