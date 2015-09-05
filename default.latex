@@ -256,7 +256,11 @@ $endif$
 $if(moderncv)$
 $else$
 $if(title)$
+$if(titlepage)$
+\input{$titlepage$}
+$else$
 \maketitle
+$endif$
 $endif$
 $endif$
 $if(abstract)$
