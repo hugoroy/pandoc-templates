@@ -80,7 +80,9 @@ $endif$
 }{}
 $if(geometry)$
 \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$if(moderncv)$
 \recomputelengths
+$endif$
 $endif$
 $if(varioref)$
 \usepackage{varioref}
