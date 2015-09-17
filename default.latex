@@ -87,8 +87,6 @@ $endif$
 $if(varioref)$
 \usepackage{varioref}
 $endif$
-$if(moderncv)$
-$else$
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -96,18 +94,25 @@ $else$
 \else
   \usepackage[unicode=true]{hyperref}
 \fi
+$if(moderncv)$ $else$
 \usepackage[usenames,dvipsnames]{color}
+$endif$
 \hypersetup{breaklinks=true,
             bookmarks=true,
+            $if(moderncv)$pdfpagemode = \pdfpagemode,
+            pdfstartpage = 1,
+            pdfcreator = {\LaTeX{} with 'moderncv' package},
+            baseurl = $if(moderncv.baseurl)$$moderncv.baseurl$$else$http://$endif$,
+            bookmarksopen = true,
+            bookmarksdepth = 2,$endif$
             pdfauthor={$author-meta$},
-            pdftitle={$title-meta$},
+            pdftitle={$title-meta$},$if(moderncv)$ $else$
             colorlinks=true,
             citecolor=$if(citecolor)$$citecolor$$else$blue$endif$,
             urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
-            linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,$endif$
             pdfborder={0 0 0}
             $if(hidelinks)$,hidelinks=$hidelinks$,$endif$}
-$endif$
 \urlstyle{same}  % don't use monospace font for urls
 $if(lang)$
 \ifxetex
@@ -230,6 +235,9 @@ $endif$
 $if(moderncv.phone)$
 \phone{$moderncv.phone$}
 $endif$
+$for(moderncv.social)$
+\social$if(moderncv.social.type)$[$moderncv.social.type$]$endif$$if(moderncv.social.url)$[$moderncv.social.url$]$endif${$moderncv.social.name$}
+$endfor$
 $if(moderncv.fax)$
 \fax{$moderncv.fax$}
 $endif$
@@ -255,10 +263,10 @@ $endif$
 \begin{document}
 $if(moderncv)$
 $else$
-$if(title)$
 $if(titlepage)$
 \input{$titlepage$}
 $else$
+$if(title)$
 \maketitle
 $endif$
 $endif$
