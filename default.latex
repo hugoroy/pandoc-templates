@@ -35,13 +35,13 @@ $endif$
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
   \newcommand{\euro}{€}
 $if(mainfont)$
-    \setmainfont$if(mainfontoptions)$[$for(mainfontoptions)$,$endfor$]$endif${$mainfont$}
+    \setmainfont$if(mainfontoptions)$[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]$endif${$mainfont$}
 $endif$
 $if(sansfont)$
-    \setsansfont$if(sansfontoptions)$[$for(sansfontoptions)$,$endfor$]$endif${$sansfont$}
+    \setsansfont$if(sansfontoptions)$[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]$endif${$sansfont$}
 $endif$
 $if(monofont)$
-    \setmonofont$if(monofontoptions)$[$for(monofontoptions)$,$endfor$]$else$[Mapping=tex-ansi]$endif${$monofont$}
+    \setmonofont$if(monofontoptions)$[$for(monofontoptions)$$monofontoptions$$sep$,$endfor$]$else$[Mapping=tex-ansi]$endif${$monofont$}
 $endif$
 $if(mathfont)$
     \setmathfont(Digits,Latin,Greek){$mathfont$}
@@ -49,9 +49,9 @@ $endif$
 
 % Custom fonts 
 $if(libertine)$
-    \setmainfont$if(mainfontoptions)$[$for(mainfontoptions)$,$endfor$]$endif${Linux Libertine O}
+    \setmainfont$if(mainfontoptions)$[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]$endif${Linux Libertine O}
     \chardef\&="E050
-    \setsansfont$if(sansfontoptions)$[$for(sansfontoptions)$,$endfor$]$endif${Linux Biolinum O}
+    \setsansfont$if(sansfontoptions)$[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]$endif${Linux Biolinum O}
 $endif$
 $if(alegreya)$
     \setmainfont[Mapping=tex-text,Scale=1]{Alegreya}
@@ -98,8 +98,7 @@ $if(moderncv)$ $else$
 \usepackage[usenames,dvipsnames]{color}
 $endif$
 \hypersetup{breaklinks=true,
-            bookmarks=true,
-            $if(moderncv)$pdfpagemode = \pdfpagemode,
+            bookmarks=true, $if(moderncv)$pdfpagemode = \pdfpagemode,
             pdfstartpage = 1,
             pdfcreator = {\LaTeX{} with 'moderncv' package},
             baseurl = $if(moderncv.baseurl)$$moderncv.baseurl$$else$http://$endif$,
