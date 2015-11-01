@@ -1,14 +1,12 @@
-\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$$if(papersize)$$papersize$,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
-
-% Options for moderncv
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(papersize)$$papersize$,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
 $if(moderncv)$
+% Options for moderncv
 \moderncvtheme[$for(moderncv.options)$$moderncv.options$$sep$,$endfor$]{$moderncv.theme$}
 \firstname{$moderncv.firstname$}
 \familyname{$moderncv.familyname$}
 $endif$
-
 $if(fontfamily)$
-\usepackage{$fontfamily$}
+\usepackage[$fontfamilyoptions$]{$fontfamily$}
 $else$
 \usepackage{lmodern}
 $endif$
@@ -20,7 +18,7 @@ $endif$
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[T1]{fontenc}
+  \usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
   \usepackage[utf8]{inputenc}
 $if(euro)$
   \usepackage{eurosym}
@@ -28,34 +26,22 @@ $endif$
 \else % if luatex or xelatex
   \ifxetex
     \usepackage{mathspec}
-    \usepackage{xltxtra,xunicode}
   \else
     \usepackage{fontspec}
   \fi
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
   \newcommand{\euro}{€}
 $if(mainfont)$
-    \setmainfont$if(mainfontoptions)$[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]$endif${$mainfont$}
+    \setmainfont[$mainfontoptions$]{$mainfont$}
 $endif$
 $if(sansfont)$
-    \setsansfont$if(sansfontoptions)$[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]$endif${$sansfont$}
+    \setsansfont[$sansfontoptions$]{$sansfont$}
 $endif$
 $if(monofont)$
-    \setmonofont$if(monofontoptions)$[$for(monofontoptions)$$monofontoptions$$sep$,$endfor$]$else$[Mapping=tex-ansi]$endif${$monofont$}
+    \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$monofontoptions$$endif$]{$monofont$}
 $endif$
 $if(mathfont)$
-    \setmathfont(Digits,Latin,Greek){$mathfont$}
-$endif$
-
-% Custom fonts 
-$if(libertine)$
-    \setmainfont$if(mainfontoptions)$[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]$endif${Linux Libertine O}
-    \chardef\&="E050
-    \setsansfont$if(sansfontoptions)$[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]$endif${Linux Biolinum O}
-$endif$
-$if(alegreya)$
-    \setmainfont[Mapping=tex-text,Scale=1]{Alegreya}
-    \setsansfont[Mapping=tex-text,Scale=1]{Alegreya Sans}
+    \setmathfont(Digits,Latin,Greek)[$mathfontoptions$]{$mathfont$}
 $endif$
 $if(garamond)$
     \setmainfont[Mapping=tex-text,Scale=1,BoldFont={Garamond Premier Pro Bold},RawFeature={+cv11,+liga,+dlig,+calt,+onum,+tnum},ItalicFeatures={RawFeature={+cv05,+clig}}]{EB Garamond}
@@ -65,7 +51,6 @@ $if(kurier-light)$
   \setmainfont[BoldFont={Kurier Bold}, ItalicFont={Kurier Light Italic}, BoldItalicFont={Kurier Bold Italic}]{Kurier Light}
   \setsansfont[BoldFont={Kurier Bold}, ItalicFont={Kurier Light Italic}, BoldItalicFont={Kurier Bold Italic}]{Kurier Light}
 $endif$
-
 $if(CJKmainfont)$
     \usepackage{xeCJK}
     \setCJKmainfont[$CJKoptions$]{$CJKmainfont$}
@@ -87,15 +72,9 @@ $endif$
 $if(varioref)$
 \usepackage{varioref}
 $endif$
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
+\usepackage{hyperref}
 $if(moderncv)$ $else$
-\usepackage[usenames,dvipsnames]{color}
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
 $endif$
 \hypersetup{breaklinks=true,
             bookmarks=true, $if(moderncv)$pdfpagemode = \pdfpagemode,
@@ -104,22 +83,28 @@ $endif$
             baseurl = $if(moderncv.baseurl)$$moderncv.baseurl$$else$http://$endif$,
             bookmarksopen = true,
             bookmarksdepth = 2,$endif$
-            pdfauthor={$author-meta$},
-            pdftitle={$title-meta$},$if(moderncv)$ $else$
+            unicode=true,$if(title-meta)$
+            pdftitle={$title-meta$},$endif$$if(moderncv)$ $else$ $if(author-meta)$
+            pdfauthor={$author-meta$},$endif$$if(subtitle)$
+            pdfsubject={$subtitle$},$endif$$if(keywords)$
+            pdfkeywords={$keywords$},$endif$
             colorlinks=true,
-            citecolor=$if(citecolor)$$citecolor$$else$blue$endif$,
-            urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
-            linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,$endif$
-            pdfborder={0 0 0}
-            $if(hidelinks)$,hidelinks=$hidelinks$,$endif$}
+            citecolor=$if(citecolor)$$citecolor$$else$black$endif$,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$black$endif$,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$black$endif$,
+            pdfborder={0 0 0}$if(hidelinks)$,
+            hidelinks$endif$}
 \urlstyle{same}  % don't use monospace font for urls
 $if(lang)$
-\ifxetex
-  \usepackage{polyglossia}
-  \setmainlanguage{$mainlang$}
-  \setotherlanguages{$for(otherlang)$$otherlang$$sep$,$endfor$}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[shorthands=off,$for(babel-otherlangs)$$babel-otherlangs$$sep$,$endfor$,main=$babel-lang$]{babel}
+  $babel-newcommands$
 \else
-  \usepackage[shorthands=off,$lang$]{babel}
+  \usepackage{polyglossia}
+  \setmainlanguage[$polyglossia-lang.options$]{$polyglossia-lang.name$$mainlang$}
+$for(polyglossia-otherlangs)$
+  \setotherlanguage[$polyglossia-otherlangs.options$]{$polyglossia-otherlangs.name$$otherlang$}
+$endfor$
 \fi
 $endif$
 $if(natbib)$
@@ -143,7 +128,7 @@ $highlighting-macros$
 $endif$
 $if(verbatim-in-note)$
 \usepackage{fancyvrb}
-\VerbatimFootnotes
+\VerbatimFootnotes % allows verbatim text in footnotes
 $endif$
 $if(tables)$
 \usepackage{longtable,booktabs}
@@ -195,6 +180,23 @@ $endif$
 $if(verbatim-in-note)$
 \VerbatimFootnotes % allows verbatim text in footnotes
 $endif$
+$if(dir)$
+\ifxetex
+  % load bidi as late as possible as it modifies e.g. graphicx
+  $if(latex-dir-rtl)$
+  \usepackage[RTLdocument]{bidi}
+  $else$
+  \usepackage{bidi}
+  $endif$
+\fi
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \TeXXeTstate=1
+  \newcommand{\RL}[1]{\beginR #1\endR}
+  \newcommand{\LR}[1]{\beginL #1\endL}
+  \newenvironment{RTL}{\beginR}{\endR}
+  \newenvironment{LTR}{\beginL}{\endL}
+\fi
+$endif$
 
 $if(title)$
 \title{$title$$if(subtitle)$\\\vspace{0.5em}{\large $subtitle$}$endif$}
@@ -209,15 +211,18 @@ $for(header-includes)$
 $header-includes$
 $endfor$
 
+$if(subparagraph)$
+$else$
 % Redefines (sub)paragraphs to behave more like sections
-%% \ifx\paragraph\undefined\else
-%% \let\oldparagraph\paragraph
-%% \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-%% \fi
-%% \ifx\subparagraph\undefined\else
-%% \let\oldsubparagraph\subparagraph
-%% \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-%% \fi
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+$endif$
 
 $if(moderncv.title)$
 \title{$moderncv.title$}
