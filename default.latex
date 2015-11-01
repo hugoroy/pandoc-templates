@@ -84,14 +84,14 @@ $endif$
             bookmarksopen = true,
             bookmarksdepth = 2,$endif$
             unicode=true,$if(title-meta)$
-            pdftitle={$title-meta$},$endif$$if(moderncv)$ $else$ $if(author-meta)$
+            pdftitle={$title-meta$},$endif$$if(author-meta)$
             pdfauthor={$author-meta$},$endif$$if(subtitle)$
             pdfsubject={$subtitle$},$endif$$if(keywords)$
-            pdfkeywords={$keywords$},$endif$
+            pdfkeywords={$keywords$},$endif$$if(moderncv)$ $else$ 
             colorlinks=true,
             citecolor=$if(citecolor)$$citecolor$$else$black$endif$,
             urlcolor=$if(urlcolor)$$urlcolor$$else$black$endif$,
-            linkcolor=$if(linkcolor)$$linkcolor$$else$black$endif$,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$black$endif$,$endif$
             pdfborder={0 0 0}$if(hidelinks)$,
             hidelinks$endif$}
 \urlstyle{same}  % don't use monospace font for urls
