@@ -199,7 +199,7 @@ $if(dir)$
 $endif$
 
 $if(title)$
-\title{$title$$if(subtitle)$\\\vspace{0.5em}{\large $subtitle$}$endif$}
+\title$if(title-short)$[$title-short$]$endif${$title$$if(subtitle)$\\\vspace{0.5em}{\large $subtitle$}$endif$}
 $endif$
 $if(author)$
 \author$if(author-short)$[$author-short$]$endif${$for(author)$$author$$sep$ \and $endfor$}
