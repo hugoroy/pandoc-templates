@@ -72,28 +72,29 @@ $endif$
 $if(varioref)$
 \usepackage{varioref}
 $endif$
-\usepackage{hyperref}
+\usepackage[$if(linkborders)$hyperfootnotes=false$endif$]{hyperref}
 $if(moderncv)$ $else$
 \PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
 $endif$
-\hypersetup{breaklinks=true,
-            bookmarks=true, $if(moderncv)$pdfpagemode = \pdfpagemode,
+\hypersetup{unicode=true,$if(moderncv)$
+            bookmarks=true,
+            pdfpagemode = \pdfpagemode,
             pdfstartpage = 1,
             pdfcreator = {\LaTeX{} with 'moderncv' package},
             baseurl = $if(moderncv.baseurl)$$moderncv.baseurl$$else$http://$endif$,
             bookmarksopen = true,
-            bookmarksdepth = 2,$endif$
-            unicode=true,$if(title-meta)$
+            bookmarksdepth = 2,$endif$$if(title-meta)$
             pdftitle={$title-meta$},$endif$$if(author-meta)$
             pdfauthor={$author-meta$},$endif$$if(subtitle)$
             pdfsubject={$subtitle$},$endif$$if(keywords)$
-            pdfkeywords={$keywords$},$endif$$if(moderncv)$ $else$ 
+            pdfkeywords={$for(keywords)$$keywords$$sep$;$endfor$},$endif$ $if(colorlinks)$
             colorlinks=true,
-            citecolor=$if(citecolor)$$citecolor$$else$blue$endif$,
-            urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
-            linkcolor=$if(linkcolor)$$linkcolor$$else$Green$endif$,$endif$
-            pdfborder={0 0 0}$if(hidelinks)$,
-            hidelinks$endif$}
+            linkcolor=$if(linkcolor)$$linkcolor$$else$Maroon$endif$,
+            citecolor=$if(citecolor)$$citecolor$$else$Blue$endif$,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$Blue$endif$,$else$ 
+            pdfborder={0 0 $if(linkborders)$$linkborders$$else$0$endif$},$endif$
+            breaklinks=true}
+            
 \urlstyle{same}  % don't use monospace font for urls
 $if(lang)$
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
