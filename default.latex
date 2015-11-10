@@ -24,11 +24,7 @@ $if(euro)$
   \usepackage{eurosym}
 $endif$
 \else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
+  \usepackage{fontspec}
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
   \newcommand{\euro}{€}
 $if(mainfont)$
