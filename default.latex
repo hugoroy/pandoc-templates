@@ -264,8 +264,9 @@ $if(abstract)$
 $abstract$
 $if(tags)$
 \bigskip
+
 \noindent \textbf{$if(tags-label)$$tags-label$$else$Keywords.$endif$}
-$for(tags)$$tags$$sep$~--$endfor$
+$for(tags)$$tags$$sep$~-- $endfor$
 $endif$
 \end{abstract}
 $endif$
