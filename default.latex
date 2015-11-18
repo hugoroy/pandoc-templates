@@ -6,7 +6,7 @@ $if(moderncv)$
 \familyname{$moderncv.familyname$}
 $endif$
 $if(fontfamily)$
-\usepackage[$fontfamilyoptions$]{$fontfamily$}
+\usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
 $else$
 \usepackage{lmodern}
 $endif$
@@ -28,16 +28,16 @@ $endif$
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
   \newcommand{\euro}{€}
 $if(mainfont)$
-    \setmainfont[$mainfontoptions$]{$mainfont$}
+    \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
 $endif$
 $if(sansfont)$
-    \setsansfont[$sansfontoptions$]{$sansfont$}
+    \setsansfont[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]{$sansfont$}
 $endif$
 $if(monofont)$
-    \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$monofontoptions$$endif$]{$monofont$}
+    \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$for(monofontoptions)$$monofontoptions$$sep$,$endfor$$endif$]{$monofont$}
 $endif$
 $if(mathfont)$
-    \setmathfont(Digits,Latin,Greek)[$mathfontoptions$]{$mathfont$}
+    \setmathfont(Digits,Latin,Greek)[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
 $endif$
 $if(garamond)$
     \setmainfont[Mapping=tex-text,Scale=1,BoldFont={Garamond Premier Pro Bold},RawFeature={+cv11,+liga,+dlig,+calt,+onum,+tnum},ItalicFeatures={RawFeature={+cv05,+clig}}]{EB Garamond}
@@ -49,7 +49,7 @@ $if(kurier-light)$
 $endif$
 $if(CJKmainfont)$
     \usepackage{xeCJK}
-    \setCJKmainfont[$CJKoptions$]{$CJKmainfont$}
+    \setCJKmainfont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKmainfont$}
 $endif$
 \fi
 % use upquote if available, for straight quotes in verbatim environments
@@ -72,30 +72,44 @@ $endif$
 $if(moderncv)$ $else$
 \PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
 $endif$
-\hypersetup{unicode=true,$if(moderncv)$
-            bookmarks=true,
+\hypersetup{unicode=true,
+$if(title-meta)$
+            pdftitle={$title-meta$},
+$endif$
+$if(author-meta)$
+            pdfauthor={$author-meta$},
+$endif$
+$if(subtitle)$
+            pdfsubject={$subtitle$},
+$endif$
+$if(keywords)$
+            pdfkeywords={$for(keywords)$$keywords$$sep$; $endfor$},
+$endif$
+$if(colorlinks)$
+            colorlinks=true,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$Maroon$endif$,
+            citecolor=$if(citecolor)$$citecolor$$else$Blue$endif$,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$Blue$endif$,
+$else$
+            pdfborder={0 0 0},
+$endif$
+$if(moderncv)$
+            bookmarks= true,
+            bookmarksopen = true,
+            bookmarksdepth = 2,
             pdfpagemode = \pdfpagemode,
             pdfstartpage = 1,
             pdfcreator = {\LaTeX{} with 'moderncv' package},
             baseurl = $if(moderncv.baseurl)$$moderncv.baseurl$$else$http://$endif$,
-            bookmarksopen = true,
-            bookmarksdepth = 2,$endif$$if(title-meta)$
-            pdftitle={$title-meta$},$endif$$if(author-meta)$
-            pdfauthor={$author-meta$},$endif$$if(subtitle)$
-            pdfsubject={$subtitle$},$endif$$if(keywords)$
-            pdfkeywords={$for(keywords)$$keywords$$sep$;$endfor$},$endif$$if(colorlinks)$
-            colorlinks=true,
-            linkcolor=$if(linkcolor)$$linkcolor$$else$Maroon$endif$,
-            citecolor=$if(citecolor)$$citecolor$$else$Blue$endif$,
-            urlcolor=$if(urlcolor)$$urlcolor$$else$Blue$endif$,$else$ 
-            pdfborder={0 0 $if(linkborders)$$linkborders$$else$0$endif$},$endif$
+$endif$
             breaklinks=true}
-            
 \urlstyle{same}  % don't use monospace font for urls
 $if(lang)$
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[shorthands=off,$for(babel-otherlangs)$$babel-otherlangs$$otherlang$$sep$,$endfor$,main=$babel-lang$$mainlang$]{babel}
+  \usepackage[shorthands=off,$for(babel-otherlangs)$$babel-otherlangs$,$endfor$main=$babel-lang$]{babel}
+$if(babel-newcommands)$
   $babel-newcommands$
+$endif$
 \else
   \usepackage{polyglossia}
   \setmainlanguage[$polyglossia-lang.options$]{$polyglossia-lang.name$$mainlang$}
@@ -277,7 +291,9 @@ $include-before$
 $endfor$
 $if(toc)$
 {
+$if(colorlinks)$
 \hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
+$endif$
 \setcounter{tocdepth}{$toc-depth$}
 $for(toc-options)$
 $toc-options$
