@@ -265,11 +265,54 @@ $endif$
 \begin{document}
 $if(moderncv)$
 $else$
+$if(lettre)$
+\begin{letter}{$for(lettre.destinataire)$$lettre.destinataire$$sep$\\$endfor$}
+\name{$lettre.name$}
+\address{$for(lettre.address)$$lettre.address$$sep$\\$endfor$}
+$if(lettre.telephone)$
+\telephone{$lettre.telephone$}
+$else$
+\notelephone
+$endif$
+$if(lettre.fax)$
+\fax{$lettre.fax$}
+$else$
+\nofax
+$endif$
+$if(lettre.email)$
+\def\emailname{email}
+\email{$lettre.email$}
+$endif$
+$if(lettre.lieu)$
+\lieu{$lettre.lieu$}
+$else$
+\nolieu
+$endif$
+$if(lettre.concname)$
+\def\concname{$lettre.concname$}
+$endif$
+\conc{$title$}
+$if(lettre.refs)$
+\def\vrefname{}
+\def\nrefname{}
+\def\telexlabelname{}
+$endif$
+$if(lettre.vref)$
+\Vref{$lettre.vref$}
+$endif$
+$if(lettre.nref)$
+\Nref{$lettre.nref$}
+$endif$
+$if(lettre.telex)$
+\telex{$lettre.telex$}
+$endif$
+$else$
 $if(titlepage)$
 \input{$titlepage$}
 $else$
 $if(title)$
 \maketitle
+$endif$
 $endif$
 $endif$
 $endif$
@@ -339,6 +382,9 @@ $endif$
 \makelettertitle
 $endif$
 
+$if(lettre.opening)$
+\opening{$lettre.opening$}
+$endif$
 
 $body$
 
@@ -348,6 +394,9 @@ $endif$
 $if(modernletter.closing)$
 \closing{$modernletter.closing$}
 \makeletterclosing
+$endif$
+$if(lettre.closing)$
+\closing{$lettre.closing$}
 $endif$
 
 
@@ -372,6 +421,26 @@ $sep$\vfill
 $endfor$
 $endif$
 
+
+$if(lettre.cc)$
+\cc{$lettre.cc$}
+$endif$
+$if(lettre.encl)$
+$if(lettre.enclname)$
+\def\enclname{$lettre.enclname$}
+$endif$
+\encl{$lettre.encl$}
+$endif$
+$if(lettre.mencl)$
+\mencl{$lettre.mencl$}
+$endif$
+$if(lettre.ps)$
+\ps{$lettre.ps$}
+$endif$
+
+$if(lettre)$
+\end{letter}
+$endif$
 
 $if(natbib)$
 $if(bibliography)$
